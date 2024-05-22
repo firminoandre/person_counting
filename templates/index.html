@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contagem de pessoas entrando e saindo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var socket = io();
+            socket.on('update_count', function(data) {
+                document.getElementById('entering_count').innerText = data.entering_count;
+                document.getElementById('exiting_count').innerText = data.exiting_count;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Numero de pessoas que entraram: <span id="entering_count">Nenhum</span></h1>
+    <h1>Numero de pessoas que sairam: <span id="exiting_count">Nenhum</span></h1>
+</body>
+</html>
