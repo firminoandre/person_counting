@@ -1,20 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Contagem de pessoas entrando e saindo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             var socket = io();
             socket.on('update_count', function(data) {
-                document.getElementById('entering_count').innerText = data.entering_count;
-                document.getElementById('exiting_count').innerText = data.exiting_count;
+                document.getElementById('person_in').innerText = data.person_in;
+                document.getElementById('person_out').innerText = data.person_out;
+                document.getElementById('inside_persons').innerText = data.inside_persons;
             });
         });
     </script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f7fa;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h2 {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .card .value {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Numero de pessoas que entraram: <span id="entering_count">Nenhum</span></h1>
-    <h1>Numero de pessoas que sairam: <span id="exiting_count">Nenhum</span></h1>
+    <div class="container">
+        <div class="card">
+            <h2>Quantidade de pessoas que saíram</h2>
+            <div class="value" id="person_out">0</div>
+        </div>
+        <div class="card">
+            <h2>Quantidade de pessoas que entraram</h2>
+            <div class="value" id="person_in">0</div>
+        </div>
+        <div class="card">
+            <h2>Quantidade de pessoas dentro</h2>
+            <div class="value" id="inside_persons">0</div>
+        </div>
+    </div>
 </body>
 </html>
+
